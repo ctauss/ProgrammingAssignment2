@@ -37,16 +37,15 @@ makeCacheMatrix <- function(theMatrix = matrix()) {
 }
 
 
-## cacheSolve - is a function which returns a matrix that is the inverse of 'theMatrix' 
-##(which was set by the setMatrix() function).
-## But first it checks if the inverse is already in the cache.  
-## If so, it uses that - if not it calculates the inverse and places it in the cache.
+## cacheSolve - is a function which returns a matrix that is the inverse of the Matrix was set by the setMatrix() function.
+## First it checks if the inverse is already in the cache.  If so, it uses that - if not it calculates the inverse matrix
+## and places it in the cache before returning it.
 
 cacheSolve <- function(x, ...) {
 	# This gets the inverted matrix from the cache to a local function variable
 	InvMatrix <- x$getInvMatrix()
         
-	# If the cache value is not NULL, then return that, othewise ...
+	# If the cache value is already set (ie. not NULL), then return that, othewise ...
 	if(!is.null(InvMatrix)) {
 		message("Getting cached Inversed Matrix")
       	return(InvMatrix)
