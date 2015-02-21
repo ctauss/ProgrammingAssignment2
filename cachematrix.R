@@ -7,23 +7,30 @@
 makeCacheMatrix <- function(theMatrix = matrix()) {
 	invMatrix <- NULL
 
+	# Set matrix in closure variable.  
+	# Note that this sets to NULL any previously cached inverted matrix.
       setMatrix <- function(y) {
       	theMatrix <<- y
             invMatrix <<- NULL
   	}
       
+	# Get matrix from closure variable
 	getMatrix <- function(){
 		theMatrix
 	}
-
+	
+	# Set inverted matrix to closure variable
 	setInvMatrix <- function(theInvMatrix){
 		invMatrix <<- theInvMatrix
 	}
-    		
+    	
+	# Get inverted matrix from closure variable 
+	# Note that if this is not set, the function returns NULL
 	getInvMatrix <- function(){
 		invMatrix
 	}
   	
+	# This is the return value which returns a vector of callable functions which can refer to the closure variables,
 	list(setMatrix = setMatrix, getMatrix = getMatrix, setInvMatrix = setInvMatrix, getInvMatrix = getInvMatrix)
 }
 
@@ -34,18 +41,24 @@ makeCacheMatrix <- function(theMatrix = matrix()) {
 ## If so, it uses that - if not it calculates the inverse and places it in the cache.
 
 cacheSolve <- function(x, ...) {
+	# This gets the inverted matrix from the cache
 	InvMatrix <- x$getInvMatrix()
         
+	# If the cache value is not NULL, then return that ...
 	if(!is.null(InvMatrix)) {
 		message("Getting cached Inversed Matrix")
       	return(InvMatrix)
  	}
-        
+      
+	# If here, this means the cached inverted Matrix is NULL so we need to solve for it ourselves.
 	Matrix <- x$getMatrix()
-        
+      
+	# Compute inverse Matrix and store in closure variable.
 	InvMatrix <- solve(Matrix)
-        
+      
+	# Set computed inverse Matrix to the cache (i.e. the closure variable)
 	x$setInvMatrix(InvMatrix)
-        
+      
+	# Return inverted Matrix.
 	InvMatrix
 }
