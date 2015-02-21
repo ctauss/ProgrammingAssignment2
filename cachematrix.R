@@ -1,8 +1,10 @@
-## This version uses names that, hopefully, makes the logic of the program self-documenting. 
-## 
-## makeCacheMatrix - is a function that creates a vector of functions which produces 
-## a vector of 4 functions: 2 each to get and set the Matrix itself  and its inverse.  
-## These are stored in variables that create a function closure.
+###############################################################################################
+# This version uses names that, hopefully, makes the logic of the program self-documenting.   #
+#                                                                                             #
+# makeCacheMatrix - is a function that creates a vector of functions which produces           #
+# a vector of 4 functions: 2 each to get and set the Matrix itself  and its inverse.          #
+# These are stored in variables that create a function closure.                               #
+###############################################################################################
 
 makeCacheMatrix <- function(theMatrix = matrix()) {
 	invMatrix <- NULL
@@ -29,7 +31,7 @@ makeCacheMatrix <- function(theMatrix = matrix()) {
 	getInvMatrix <- function(){
 		invMatrix
 	}
-  	
+
 	# This is the return value which returns a vector of callable functions which can refer to the closure variables,
 	list(setMatrix = setMatrix, getMatrix = getMatrix, setInvMatrix = setInvMatrix, getInvMatrix = getInvMatrix)
 }
