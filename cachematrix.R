@@ -7,7 +7,7 @@
 makeCacheMatrix <- function(theMatrix = matrix()) {
 	invMatrix <- NULL
 
-	# Set matrix in closure variable.  
+	# Set matrix to closure variable.  
 	# Note that this sets to NULL any previously cached inverted matrix.
       setMatrix <- function(y) {
       	theMatrix <<- y
@@ -41,22 +41,22 @@ makeCacheMatrix <- function(theMatrix = matrix()) {
 ## If so, it uses that - if not it calculates the inverse and places it in the cache.
 
 cacheSolve <- function(x, ...) {
-	# This gets the inverted matrix from the cache
+	# This gets the inverted matrix from the cache to a local function variable
 	InvMatrix <- x$getInvMatrix()
         
-	# If the cache value is not NULL, then return that ...
+	# If the cache value is not NULL, then return that, othewise ...
 	if(!is.null(InvMatrix)) {
 		message("Getting cached Inversed Matrix")
       	return(InvMatrix)
  	}
       
-	# If here, this means the cached inverted Matrix is NULL so we need to solve for it ourselves.
+	# ... if here, this means the cached inverted Matrix is NULL so we need to solve for it ourselves.
 	Matrix <- x$getMatrix()
       
-	# Compute inverse Matrix and store in closure variable.
+	# Compute inverse Matrix and store in a local function variable.
 	InvMatrix <- solve(Matrix)
       
-	# Set computed inverse Matrix to the cache (i.e. the closure variable)
+	# Set computed inverse Matrix to the cache (i.e. set to the closure variable)
 	x$setInvMatrix(InvMatrix)
       
 	# Return inverted Matrix.
